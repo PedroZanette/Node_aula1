@@ -1,12 +1,13 @@
-const inquirer = require('inquirer');
-const chalk = require('chalk');
+const express = require('express')
+const exphbs = require('express-handlebars')
 
-inquirer.prompt([
-    {name: 'nome', message: 'qual o seu nome ?'},
-    {name: 'idade', message: 'qual a sua idade ?'},
-])
+const app = express()
 
-.then((answers) => {
-    const response = `o nome de usuário é ${answers.nome} e ele tem ${answers.idade} anos`
-    console.log(chalk.bgYellow.black(response))
-})
+app.engine('handlebars' , exphbs())
+app.set('view engine' , 'handlebars')
+app.get('/', function (req, res){
+    res.render('home', {layout: false})
+}
+)
+
+app.listen(3000)
